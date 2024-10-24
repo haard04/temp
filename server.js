@@ -17,6 +17,16 @@ app.use(express.json());  // Important: This should come before the routes
 // Static assets (frontend)
 app.use(express.static(path.join(__dirname, '../frontend/public')));
 
+const chromium = require('chrome-aws-lambda');
+
+const browser = await puppeteer.launch({
+  executablePath: await chromium.executablePath,
+  args: chromium.args,
+  defaultViewport: chromium.defaultViewport,
+  headless: chromium.headless,
+});
+
+
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, { 
   useNewUrlParser: true, 
@@ -26,6 +36,7 @@ mongoose.connect(process.env.MONGO_URI, {
     console.log(`Server is running on port ${PORT}`);
   }))
   .catch((error) => console.error('MongoDB connection error:', error));
+
 
 // API Routes
 app.use('/api/products', productRoutes);  // Prefix all product routes with `/api/products`
