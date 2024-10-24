@@ -113,7 +113,7 @@ app.post('/fetch-details', async (req, res) => {
     res.json(newProduct); // Return new product with all details
   } catch (e) {
     console.log('Error fetching product details:', e.message);
-    res.status(500).json({ "error": 'Failed to fetch product details',e });
+    res.status(500).json({ "error": 'Failed to fetch product details',e:e.message });
   }
 });
 
