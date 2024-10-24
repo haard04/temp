@@ -84,8 +84,7 @@ app.post('/fetch-details', async (req, res) => {
     // If product does not exist, fetch full product details
     const browser = await puppeteer.launch({
       executablePath: await chromium.executablePath,
-      args: chromium.args,
-      defaultViewport: chromium.defaultViewport,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
       headless: chromium.headless,
     });
     const page = await browser.newPage();
